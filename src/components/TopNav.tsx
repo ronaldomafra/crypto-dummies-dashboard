@@ -4,7 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Logo } from "@/components/ui/logo";
 import { useNavigate } from "react-router-dom";
 import { 
-  Bell, ChevronDown, Globe, LogOut, Search, Settings, User 
+  Bell, ChevronDown, Globe, LogOut, Search, Settings, User,
+  LayoutDashboard, Bot, Wallet
 } from "lucide-react";
 import { 
   DropdownMenu, 
@@ -28,12 +29,18 @@ const TopNav = () => {
         <Logo size="sm" />
         
         <nav className="hidden md:flex items-center gap-4">
-          <Button variant="ghost" size="sm">Buy Crypto</Button>
-          <Button variant="ghost" size="sm">Markets</Button>
-          <Button variant="ghost" size="sm">Trade <ChevronDown size={16} /></Button>
-          <Button variant="ghost" size="sm">Futures <ChevronDown size={16} /></Button>
-          <Button variant="ghost" size="sm">Earn</Button>
-          <Button variant="ghost" size="sm">Learn <ChevronDown size={16} /></Button>
+          <Button variant="ghost" size="sm">
+            <LayoutDashboard className="mr-1" size={16} />
+            Dashboard
+          </Button>
+          <Button variant="ghost" size="sm">
+            <Bot className="mr-1" size={16} />
+            Bots
+          </Button>
+          <Button variant="ghost" size="sm">
+            <Wallet className="mr-1" size={16} />
+            Carteiras
+          </Button>
         </nav>
       </div>
       
@@ -42,7 +49,7 @@ const TopNav = () => {
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input 
             type="search" 
-            placeholder="Search..." 
+            placeholder="Pesquisar..." 
             className="pl-8 w-60 bg-crypto-lightgray focus:bg-crypto-gray"
           />
         </div>
@@ -66,20 +73,20 @@ const TopNav = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56 bg-crypto-gray border-crypto-lightgray">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
+            <DropdownMenuItem>Perfil</DropdownMenuItem>
+            <DropdownMenuItem>Configurações</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogout} className="text-crypto-negative">
               <LogOut className="mr-2 h-4 w-4" />
-              <span>Log out</span>
+              <span>Sair</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
         
         <Button size="sm" className="bg-crypto-yellow hover:bg-crypto-yellow/90 text-black">
-          Deposit
+          Depositar
         </Button>
       </div>
     </div>

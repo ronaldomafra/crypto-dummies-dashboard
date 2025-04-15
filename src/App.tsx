@@ -20,6 +20,8 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/bots" element={<Dashboard />} />
+          <Route path="/carteiras" element={<Dashboard />} />
           {/* Redirect index to login */}
           <Route path="/index" element={<Login />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
