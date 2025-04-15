@@ -10,6 +10,8 @@ import Dashboard from "./pages/Dashboard";
 import Bots from "./pages/Bots";
 import Carteiras from "./pages/Carteiras";
 import NotFound from "./pages/NotFound";
+import Ganhos from "./pages/Ganhos";
+import VisaoGeral from "./pages/VisaoGeral";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +26,8 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/bots" element={<Bots />} />
           <Route path="/carteiras" element={<Carteiras />} />
+          <Route path="/ganhos" element={<Ganhos />} />
+          <Route path="/visao-geral" element={<VisaoGeral />} />
           {/* Redirect index to login */}
           <Route path="/index" element={<Login />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

@@ -21,7 +21,7 @@ export function Logo({ className, size = "md" }: LogoProps) {
         <TrendingUp className="text-black" size={size === "sm" ? 16 : size === "md" ? 20 : 24} />
       </div>
       <span className={cn("font-bold tracking-tight", sizeClasses[size])}>
-        NegociaçãoParaIniciantes
+        TradingForDummies
       </span>
     </div>
   );

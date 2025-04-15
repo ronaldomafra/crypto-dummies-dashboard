@@ -29,15 +29,15 @@ const TopNav = () => {
         <Logo size="sm" />
         
         <nav className="hidden md:flex items-center gap-4">
-          <Button variant="ghost" size="sm">
+          <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard")}>
             <LayoutDashboard className="mr-1" size={16} />
             Dashboard
           </Button>
-          <Button variant="ghost" size="sm">
+          <Button variant="ghost" size="sm" onClick={() => navigate("/bots")}>
             <Bot className="mr-1" size={16} />
             Bots
           </Button>
-          <Button variant="ghost" size="sm">
+          <Button variant="ghost" size="sm" onClick={() => navigate("/carteiras")}>
             <Wallet className="mr-1" size={16} />
             Carteiras
           </Button>
@@ -84,10 +84,6 @@ const TopNav = () => {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        
-        <Button size="sm" className="bg-crypto-yellow hover:bg-crypto-yellow/90 text-black">
-          Depositar
-        </Button>
       </div>
     </div>
   );

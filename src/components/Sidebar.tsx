@@ -2,8 +2,7 @@
 import { cn } from "@/lib/utils";
 import { 
   BarChart2, ChevronDown, CircleDollarSign, 
-  CreditCard, HelpCircle, LayoutDashboard, Wallet,
-  Settings, TrendingUp, User, Users, Bot
+  LayoutDashboard, Wallet, Settings, User, Bot
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
@@ -49,14 +48,11 @@ const Sidebar = () => {
         <SidebarLink icon={Bot} label="Bots" to="/bots" />
         <SidebarLink icon={Wallet} label="Carteiras" to="/carteiras" />
         <SidebarLink icon={CircleDollarSign} label="Ganhos" to="/ganhos" />
-        <SidebarLink icon={BarChart2} label="Financiamento" to="/financiamento" />
+        <SidebarLink icon={BarChart2} label="Visão Geral" to="/visao-geral" />
       </div>
       
       <div className="mt-4 pt-4 border-t border-crypto-lightgray">
         <div className="space-y-1 px-2">
-          <SidebarLink icon={User} label="Pedidos" to="/pedidos" hasDropdown />
-          <SidebarLink icon={Users} label="Centro de Recompensas" to="/recompensas" />
-          <SidebarLink icon={HelpCircle} label="Indicações" to="/indicacoes" />
           <SidebarLink icon={User} label="Conta" to="/conta" hasDropdown />
           <SidebarLink icon={Settings} label="Configurações" to="/configuracoes" />
         </div>
