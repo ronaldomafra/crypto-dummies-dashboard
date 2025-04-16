@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowUp, ArrowDown, X } from "lucide-react";
+import { ArrowUp, ArrowDown, X, ChevronDown, ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   Dialog,
@@ -76,10 +76,15 @@ const botData: Bot[] = [
 const BotTable = () => {
   const [selectedPair, setSelectedPair] = useState<string | null>(null);
   const [isChartOpen, setIsChartOpen] = useState(false);
+  const [expandedRowId, setExpandedRowId] = useState<string | null>(null);
 
   const handlePairClick = (pair: string) => {
     setSelectedPair(pair);
     setIsChartOpen(true);
+  };
+
+  const toggleRow = (id: string) => {
+    setExpandedRowId(expandedRowId === id ? null : id);
   };
 
   return (
@@ -109,41 +114,74 @@ const BotTable = () => {
             </TableHeader>
             <TableBody>
               {botData.map((bot) => (
-                <TableRow key={bot.id} className="border-crypto-lightgray hover:bg-crypto-lightgray">
-                  <TableCell className="font-medium">
-                    <div 
-                      className="flex items-center gap-1 cursor-pointer" 
-                      onClick={() => handlePairClick(bot.pair)}
-                    >
-                      <div className={cn(
-                        "w-1.5 h-4 rounded-sm mr-1",
-                        bot.position === "long" ? "bg-crypto-positive" : "bg-crypto-negative"
-                      )} />
-                      <span className="hover:underline">{bot.pair}</span>
-                      <span className="text-xs bg-crypto-lightgray px-1.5 py-0.5 rounded">10x</span>
-                    </div>
-                    <div className="text-xs text-muted-foreground mt-0.5">
-                      {bot.position === "long" ? (
-                        <span className="text-crypto-positive inline-flex items-center">
-                          <ArrowUp size={12} /> Long
-                        </span>
-                      ) : (
-                        <span className="text-crypto-negative inline-flex items-center">
-                          <ArrowDown size={12} /> Short
-                        </span>
-                      )}
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-right">{bot.investment}</TableCell>
-                  <TableCell className="text-right">
-                    <div>{bot.currentPositions}</div>
-                    <div className="text-xs text-muted-foreground">{bot.btc}</div>
-                  </TableCell>
-                  <TableCell className="text-right text-crypto-positive">{bot.profit}</TableCell>
-                  <TableCell className="text-center">
-                    <Button size="sm" className="text-crypto-yellow hover:text-crypto-yellow bg-transparent hover:bg-crypto-lightgray border-crypto-yellow">View Bots</Button>
-                  </TableCell>
-                </TableRow>
+                <>
+                  <TableRow 
+                    key={bot.id} 
+                    className={cn(
+                      "border-crypto-lightgray hover:bg-crypto-lightgray cursor-pointer",
+                      expandedRowId === bot.id && "bg-crypto-lightgray"
+                    )}
+                    onClick={() => toggleRow(bot.id)}
+                  >
+                    <TableCell className="font-medium">
+                      <div className="flex items-center gap-1">
+                        <div className={cn(
+                          "w-1.5 h-4 rounded-sm mr-1",
+                          bot.position === "long" ? "bg-crypto-positive" : "bg-crypto-negative"
+                        )} />
+                        <span>{bot.pair}</span>
+                        <span className="text-xs bg-crypto-lightgray px-1.5 py-0.5 rounded">10x</span>
+                        {expandedRowId === bot.id ? (
+                          <ChevronUp size={16} className="ml-1" />
+                        ) : (
+                          <ChevronDown size={16} className="ml-1" />
+                        )}
+                      </div>
+                      <div className="text-xs text-muted-foreground mt-0.5">
+                        {bot.position === "long" ? (
+                          <span className="text-crypto-positive inline-flex items-center">
+                            <ArrowUp size={12} /> Long
+                          </span>
+                        ) : (
+                          <span className="text-crypto-negative inline-flex items-center">
+                            <ArrowDown size={12} /> Short
+                          </span>
+                        )}
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-right">{bot.investment}</TableCell>
+                    <TableCell className="text-right">
+                      <div>{bot.currentPositions}</div>
+                      <div className="text-xs text-muted-foreground">{bot.btc}</div>
+                    </TableCell>
+                    <TableCell className="text-right text-crypto-positive">{bot.profit}</TableCell>
+                    <TableCell className="text-center">
+                      <Button 
+                        size="sm" 
+                        className="text-crypto-yellow hover:text-crypto-yellow bg-transparent hover:bg-crypto-lightgray border-crypto-yellow"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handlePairClick(bot.pair);
+                        }}
+                      >
+                        View Bots
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                  {expandedRowId === bot.id && (
+                    <TableRow className="border-crypto-lightgray bg-crypto-lightgray">
+                      <TableCell colSpan={5} className="p-0">
+                        <div className="w-full h-[400px] overflow-hidden">
+                          <iframe
+                            src={`https://s.tradingview.com/widgetembed/?frameElementId=tradingview_chart&symbol=${bot.pair?.replace('/', '')}&interval=1H&hidesidetoolbar=1&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=[]&theme=dark&style=1&timezone=exchange&withdateranges=1&allowtransparency=true`}
+                            className="w-full h-full border-0"
+                            title={`TradingView Chart - ${bot.pair}`}
+                          ></iframe>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </>
               ))}
             </TableBody>
           </Table>

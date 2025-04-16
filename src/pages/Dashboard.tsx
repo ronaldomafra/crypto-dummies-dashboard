@@ -3,8 +3,6 @@ import { Button } from "@/components/ui/button";
 import TopNav from "@/components/TopNav";
 import Sidebar from "@/components/Sidebar";
 import TotalBalance from "@/components/dashboard/TotalBalance";
-import BalancePieChart from "@/components/dashboard/BalancePieChart";
-import WalletBalances from "@/components/dashboard/WalletBalances";
 import BotTable from "@/components/dashboard/BotTable";
 
 const Dashboard = () => {
@@ -18,22 +16,12 @@ const Dashboard = () => {
             <h1 className="text-2xl font-semibold">Dashboard</h1>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2">
-              <TotalBalance />
-            </div>
-            <div>
-              <BalancePieChart />
-            </div>
+          <div className="grid grid-cols-1 gap-6">
+            <TotalBalance />
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-1">
-              <WalletBalances />
-            </div>
-            <div className="lg:col-span-2">
-              <BotTable />
-            </div>
+          <div className="grid grid-cols-1 gap-6">
+            <BotTable />
           </div>
         </div>
       </div>
