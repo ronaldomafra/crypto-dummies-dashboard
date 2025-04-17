@@ -15,13 +15,9 @@ const Dashboard = () => {
             <h1 className="text-2xl font-semibold">Dashboard</h1>
           </div>
           
-          <div className="grid grid-cols-1 gap-6">
-            <TotalBalance />
-          </div>
+          <TotalBalance />
           
-          <div className="grid grid-cols-1 gap-6">
-            <BotTable />
-          </div>
+          <BotTable />
         </div>
       </div>
     </div>

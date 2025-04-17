@@ -1,9 +1,7 @@
-
 import { useState } from "react";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -43,7 +41,7 @@ const TotalBalance = () => {
 
   return (
     <Card className="bg-crypto-gray border-crypto-lightgray">
-      <CardHeader>
+      <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <CardTitle className="text-xl font-semibold mr-2">Total Balance</CardTitle>
@@ -60,51 +58,52 @@ const TotalBalance = () => {
               </Tooltip>
             </TooltipProvider>
           </div>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setHideBalance(!hideBalance)}
-          >
-            {hideBalance ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-          </Button>
         </div>
       </CardHeader>
+
       <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="md:col-span-1">
-            <div className="space-y-4">
-              <div>
-                <div className="flex items-center">
-                  <div className="text-3xl font-semibold">
-                    {hideBalance ? "••••••" : "94.836.95"}
-                  </div>
-                  <Button variant="ghost" className="h-6 ml-2">
-                    USDT <ChevronDown className="ml-1 h-3 w-3" />
-                  </Button>
+            <div className="mb-6">
+              <div className="flex items-center mb-1">
+                <div className="text-2xl font-semibold">
+                  {hideBalance ? "••••••" : "94.836.95"}
                 </div>
-                <div className="mt-4 py-2 px-3 bg-crypto-lightgray rounded-md flex items-center justify-between">
-                  <div className="flex items-center text-sm">
-                    <span>Today's PNL</span>
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Button variant="ghost" size="icon" className="h-5 w-5">
-                            <Info className="h-3 w-3" />
-                          </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Profit and Loss for today</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </div>
-                  <div className={hideBalance ? "blur-sm" : "text-crypto-positive text-sm font-medium"}>
-                    + $65,231.76
-                  </div>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="ml-2 h-8 w-8"
+                  onClick={() => setHideBalance(!hideBalance)}
+                >
+                  {hideBalance ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </Button>
+                <Button variant="ghost" className="h-6 ml-1">
+                  USDT <ChevronDown className="ml-1 h-3 w-3" />
+                </Button>
+              </div>
+              
+              <div className="mt-4 py-2 px-3 bg-crypto-lightgray rounded-md flex items-center justify-between">
+                <div className="flex items-center text-sm">
+                  <span>Today's PNL</span>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button variant="ghost" size="icon" className="h-5 w-5">
+                          <Info className="h-3 w-3" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Profit and Loss for today</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </div>
-                <div className="text-xs text-muted-foreground mt-2">
-                  You can go to Bot account Profit and Loss analysis details page from here.
+                <div className={hideBalance ? "blur-sm" : "text-crypto-positive text-sm font-medium"}>
+                  + $65,231.76
                 </div>
+              </div>
+              <div className="text-xs text-muted-foreground mt-2">
+                You can go to Bot account Profit and Loss analysis details page from here.
               </div>
             </div>
           </div>
@@ -117,7 +116,6 @@ const TotalBalance = () => {
                 <TabsTrigger value="accumulated">Accumulated Value</TabsTrigger>
               </TabsList>
               
-              {/* Wallet Balances Tab */}
               <TabsContent value="wallets" className="h-[calc(100%-40px)]">
                 <Tabs defaultValue="spot" className="h-full">
                   <TabsList className="bg-crypto-lightgray mb-4">
@@ -126,6 +124,7 @@ const TotalBalance = () => {
                     <TabsTrigger value="coin-m">COIN-M</TabsTrigger>
                     <TabsTrigger value="arbitrage">Arbitrage Bot</TabsTrigger>
                   </TabsList>
+                  
                   <TabsContent value="spot" className="h-[calc(100%-40px)]">
                     <div className="flex flex-col gap-4 h-full">
                       <div className="text-lg font-semibold">Balance (BTC)</div>
@@ -152,6 +151,7 @@ const TotalBalance = () => {
                       </div>
                     </div>
                   </TabsContent>
+                  
                   <TabsContent value="usd-m" className="h-[calc(100%-40px)]">
                     <div className="flex flex-col gap-4 h-full">
                       <div className="text-lg font-semibold">Balance (USD-M)</div>
@@ -178,6 +178,7 @@ const TotalBalance = () => {
                       </div>
                     </div>
                   </TabsContent>
+                  
                   <TabsContent value="coin-m" className="h-[calc(100%-40px)]">
                     <div className="flex flex-col gap-4 h-full">
                       <div className="text-lg font-semibold">Balance (COIN-M)</div>
@@ -204,6 +205,7 @@ const TotalBalance = () => {
                       </div>
                     </div>
                   </TabsContent>
+                  
                   <TabsContent value="arbitrage" className="h-[calc(100%-40px)]">
                     <div className="flex flex-col gap-4 h-full">
                       <div className="text-lg font-semibold">Balance (Arbitrage)</div>
@@ -241,7 +243,6 @@ const TotalBalance = () => {
                 </Tabs>
               </TabsContent>
               
-              {/* Asset Distribution Tab */}
               <TabsContent value="assetdist" className="h-[calc(100%-40px)]">
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
@@ -278,7 +279,6 @@ const TotalBalance = () => {
                 </div>
               </TabsContent>
               
-              {/* Accumulated Value Tab */}
               <TabsContent value="accumulated" className="h-[calc(100%-40px)]">
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
