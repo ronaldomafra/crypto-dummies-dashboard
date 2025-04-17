@@ -18,10 +18,10 @@ const TotalBalance = () => {
   const [hideBalance, setHideBalance] = useState(false);
 
   return (
-    <Card className="bg-crypto-gray border-crypto-lightgray">
-      <CardContent className="p-6">
-        <div className="flex flex-col gap-8">
-          {/* Top Section - Balance Information */}
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Left Column - Balance Information */}
+      <Card className="bg-crypto-gray border-crypto-lightgray">
+        <CardContent className="p-6">
           <div className="space-y-6">
             <div className="flex items-center gap-2">
               <h2 className="text-lg font-medium">Total Balance</h2>
@@ -74,14 +74,17 @@ const TotalBalance = () => {
                 + $65,231.76
               </div>
             </div>
-          </div>
 
-          {/* Bottom Section - Tabs */}
-          <Tabs defaultValue="wallet-balances" className="w-full">
+            <WalletBalances />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Right Column - Charts */}
+      <Card className="bg-crypto-gray border-crypto-lightgray">
+        <CardContent className="p-6">
+          <Tabs defaultValue="asset-distribution">
             <TabsList className="bg-transparent border-b border-crypto-lightgray w-full justify-start mb-6">
-              <TabsTrigger value="wallet-balances" className="data-[state=active]:bg-transparent">
-                Wallet Balances
-              </TabsTrigger>
               <TabsTrigger value="asset-distribution" className="data-[state=active]:bg-transparent">
                 Asset Distribution
               </TabsTrigger>
@@ -89,10 +92,6 @@ const TotalBalance = () => {
                 Accumulated Value
               </TabsTrigger>
             </TabsList>
-
-            <TabsContent value="wallet-balances">
-              <WalletBalances />
-            </TabsContent>
 
             <TabsContent value="asset-distribution">
               <BalancePieChart />
@@ -102,9 +101,9 @@ const TotalBalance = () => {
               <AccumulatedValueChart />
             </TabsContent>
           </Tabs>
-        </div>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
