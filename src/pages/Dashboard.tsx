@@ -10,13 +10,8 @@ const Dashboard = () => {
       <TopNav />
       <div className="flex flex-1 overflow-hidden">
         <Sidebar />
-        <div className="flex-1 overflow-y-auto p-6 space-y-6">
-          <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-semibold">Dashboard</h1>
-          </div>
-          
+        <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-crypto-dark">
           <TotalBalance />
-          
           <BotTable />
         </div>
       </div>
