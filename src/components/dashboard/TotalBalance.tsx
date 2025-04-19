@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -18,13 +17,13 @@ const TotalBalance = () => {
   const [hideBalance, setHideBalance] = useState(false);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
       {/* Left Column - Balance Information */}
       <Card className="bg-crypto-gray border-crypto-lightgray">
-        <CardContent className="p-6">
-          <div className="space-y-6">
+        <CardContent className="p-4 sm:p-6">
+          <div className="space-y-4 sm:space-y-6">
             <div className="flex items-center gap-2">
-              <h2 className="text-lg font-medium">Total Balance</h2>
+              <h2 className="text-base sm:text-lg font-medium">Total Balance</h2>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -40,7 +39,7 @@ const TotalBalance = () => {
             </div>
 
             <div className="flex items-center gap-2">
-              <div className="text-3xl font-bold">
+              <div className="text-xl sm:text-3xl font-bold">
                 {hideBalance ? "••••••" : "94,836.95"}
               </div>
               <Button
@@ -54,7 +53,7 @@ const TotalBalance = () => {
               <span className="text-sm text-muted-foreground">USDT</span>
             </div>
 
-            <div className="py-2 px-3 bg-crypto-lightgray rounded-md flex items-center justify-between">
+            <div className="py-2 px-3 bg-crypto-lightgray rounded-md flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
               <div className="flex items-center gap-2">
                 <span className="text-sm">Today's PNL</span>
                 <TooltipProvider>
@@ -82,13 +81,13 @@ const TotalBalance = () => {
 
       {/* Right Column - Charts */}
       <Card className="bg-crypto-gray border-crypto-lightgray">
-        <CardContent className="p-6">
+        <CardContent className="p-4 sm:p-6">
           <Tabs defaultValue="asset-distribution">
-            <TabsList className="bg-transparent border-b border-crypto-lightgray w-full justify-start mb-6">
-              <TabsTrigger value="asset-distribution" className="data-[state=active]:bg-transparent">
+            <TabsList className="bg-transparent border-b border-crypto-lightgray w-full justify-start mb-4 sm:mb-6 overflow-x-auto">
+              <TabsTrigger value="asset-distribution" className="data-[state=active]:bg-transparent whitespace-nowrap">
                 Asset Distribution
               </TabsTrigger>
-              <TabsTrigger value="accumulated-value" className="data-[state=active]:bg-transparent">
+              <TabsTrigger value="accumulated-value" className="data-[state=active]:bg-transparent whitespace-nowrap">
                 Accumulated Value
               </TabsTrigger>
             </TabsList>
