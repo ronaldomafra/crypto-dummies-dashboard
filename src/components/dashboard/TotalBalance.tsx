@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -17,7 +18,7 @@ const TotalBalance = () => {
   const [hideBalance, setHideBalance] = useState(false);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 w-full overflow-x-hidden">
       {/* Left Column - Balance Information */}
       <Card className="bg-crypto-gray border-crypto-lightgray">
         <CardContent className="p-4 sm:p-6">
@@ -82,21 +83,27 @@ const TotalBalance = () => {
       {/* Right Column - Charts */}
       <Card className="bg-crypto-gray border-crypto-lightgray">
         <CardContent className="p-4 sm:p-6">
-          <Tabs defaultValue="asset-distribution">
+          <Tabs defaultValue="asset-distribution" className="w-full">
             <TabsList className="bg-transparent border-b border-crypto-lightgray w-full justify-start mb-4 sm:mb-6 overflow-x-auto">
-              <TabsTrigger value="asset-distribution" className="data-[state=active]:bg-transparent whitespace-nowrap">
+              <TabsTrigger 
+                value="asset-distribution" 
+                className="data-[state=active]:bg-transparent whitespace-nowrap"
+              >
                 Asset Distribution
               </TabsTrigger>
-              <TabsTrigger value="accumulated-value" className="data-[state=active]:bg-transparent whitespace-nowrap">
+              <TabsTrigger 
+                value="accumulated-value" 
+                className="data-[state=active]:bg-transparent whitespace-nowrap"
+              >
                 Accumulated Value
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="asset-distribution">
+            <TabsContent value="asset-distribution" className="w-full">
               <BalancePieChart />
             </TabsContent>
 
-            <TabsContent value="accumulated-value">
+            <TabsContent value="accumulated-value" className="w-full">
               <AccumulatedValueChart />
             </TabsContent>
           </Tabs>
