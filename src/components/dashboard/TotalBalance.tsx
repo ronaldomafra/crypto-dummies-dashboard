@@ -2,8 +2,14 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Eye, EyeOff, HelpCircle } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Eye, EyeOff, HelpCircle, Maximize2 } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   Tooltip,
   TooltipContent,
@@ -82,31 +88,52 @@ const TotalBalance = () => {
 
       {/* Right Column - Charts */}
       <Card className="bg-crypto-gray border-crypto-lightgray">
-        <CardContent className="p-4 sm:p-6">
-          <Tabs defaultValue="asset-distribution" className="w-full">
-            <TabsList className="bg-transparent border-b border-crypto-lightgray w-full justify-start mb-4 sm:mb-6 overflow-x-auto">
-              <TabsTrigger 
-                value="asset-distribution" 
-                className="data-[state=active]:bg-transparent whitespace-nowrap"
-              >
-                Asset Distribution
-              </TabsTrigger>
-              <TabsTrigger 
-                value="accumulated-value" 
-                className="data-[state=active]:bg-transparent whitespace-nowrap"
-              >
-                Accumulated Value
-              </TabsTrigger>
-            </TabsList>
+        <CardContent className="space-y-6 p-4 sm:p-6">
+          {/* Asset Distribution Section */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-base font-semibold">Asset Distribution</h3>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Maximize2 className="h-4 w-4" />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl">
+                  <DialogHeader>
+                    <DialogTitle>Asset Distribution</DialogTitle>
+                  </DialogHeader>
+                  <div className="h-[500px]">
+                    <BalancePieChart />
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </div>
+            <BalancePieChart />
+          </div>
 
-            <TabsContent value="asset-distribution" className="w-full">
-              <BalancePieChart />
-            </TabsContent>
-
-            <TabsContent value="accumulated-value" className="w-full">
-              <AccumulatedValueChart />
-            </TabsContent>
-          </Tabs>
+          {/* Accumulated Value Section */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-base font-semibold">Accumulated Value</h3>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Maximize2 className="h-4 w-4" />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl">
+                  <DialogHeader>
+                    <DialogTitle>Accumulated Value</DialogTitle>
+                  </DialogHeader>
+                  <div className="h-[500px]">
+                    <AccumulatedValueChart />
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </div>
+            <AccumulatedValueChart />
+          </div>
         </CardContent>
       </Card>
     </div>

@@ -1,6 +1,6 @@
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts";
+import { Card, CardContent } from "@/components/ui/card";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
 const data = [
   { name: "Spot", value: 20, color: "#3498DB" },
@@ -12,12 +12,7 @@ const data = [
 const BalancePieChart = () => {
   return (
     <Card className="bg-crypto-gray border-crypto-lightgray">
-      <CardHeader className="pb-0">
-        <CardTitle className="text-base font-semibold flex items-center justify-between">
-          <span>Asset Distribution</span>
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="h-[240px] pt-0">
+      <CardContent className="h-[240px]">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie

@@ -18,7 +18,7 @@ const data = [
 const AccumulatedValueChart = () => {
   return (
     <Card className="bg-crypto-gray border-crypto-lightgray">
-      <CardContent className="h-[300px] pt-6">
+      <CardContent className="h-[240px]">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data}>
             <defs>
