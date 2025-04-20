@@ -9,12 +9,14 @@ import { Logo } from "@/components/ui/logo";
 import { useToast } from "@/hooks/use-toast";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const navigate = useNavigate();
   const { toast } = useToast();
   const { login } = useAuth();
@@ -22,8 +24,10 @@ const Login = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setErrorMessage(null);
     
     try {
+      console.log("Attempting to connect to:", 'http://69.62.98.55:3000/api/auth/login');
       const response = await fetch('http://69.62.98.55:3000/api/auth/login', {
         method: 'POST',
         headers: {
@@ -32,7 +36,9 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
 
+      console.log("Response status:", response.status);
       const data = await response.json();
+      console.log("Response data:", data);
 
       if (response.ok && data.token) {
         login(data.token);
@@ -42,19 +48,23 @@ const Login = () => {
         });
         navigate("/dashboard");
       } else {
-        // Show the specific error message from the API if available
-        const errorMessage = data.message || data.error || "Invalid email or password.";
+        // Show the specific error message from the API
+        const apiErrorMessage = data.message || data.error || "Invalid email or password.";
+        setErrorMessage(apiErrorMessage);
         toast({
           title: "Login failed",
-          description: errorMessage,
+          description: apiErrorMessage,
           variant: "destructive",
         });
       }
     } catch (error) {
-      // Handle network or other errors
+      console.error("Login error:", error);
+      // This error occurs when the API is unreachable (network error)
+      const networkErrorMsg = "Unable to connect to authentication server. Please check your internet connection or try again later.";
+      setErrorMessage(networkErrorMsg);
       toast({
         title: "Connection error",
-        description: "Could not connect to the authentication service. Please try again later.",
+        description: networkErrorMsg,
         variant: "destructive",
       });
     } finally {
@@ -76,6 +86,12 @@ const Login = () => {
           </CardHeader>
           <form onSubmit={handleLogin}>
             <CardContent className="space-y-4">
+              {errorMessage && (
+                <Alert variant="destructive">
+                  <AlertTitle>Error</AlertTitle>
+                  <AlertDescription>{errorMessage}</AlertDescription>
+                </Alert>
+              )}
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <div className="relative">
