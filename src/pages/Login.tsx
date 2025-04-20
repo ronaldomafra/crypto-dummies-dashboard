@@ -42,16 +42,19 @@ const Login = () => {
         });
         navigate("/dashboard");
       } else {
+        // Show the specific error message from the API if available
+        const errorMessage = data.message || data.error || "Invalid email or password.";
         toast({
           title: "Login failed",
-          description: "Invalid email or password.",
+          description: errorMessage,
           variant: "destructive",
         });
       }
     } catch (error) {
+      // Handle network or other errors
       toast({
-        title: "Login failed",
-        description: "An error occurred while trying to login.",
+        title: "Connection error",
+        description: "Could not connect to the authentication service. Please try again later.",
         variant: "destructive",
       });
     } finally {
