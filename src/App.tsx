@@ -4,6 +4,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
@@ -17,24 +19,44 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/bots" element={<Bots />} />
-          <Route path="/carteiras" element={<Carteiras />} />
-          <Route path="/ganhos" element={<Ganhos />} />
-          <Route path="/visao-geral" element={<VisaoGeral />} />
-          {/* Redirect index to login */}
-          <Route path="/index" element={<Login />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/dashboard" element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/bots" element={
+              <ProtectedRoute>
+                <Bots />
+              </ProtectedRoute>
+            } />
+            <Route path="/carteiras" element={
+              <ProtectedRoute>
+                <Carteiras />
+              </ProtectedRoute>
+            } />
+            <Route path="/ganhos" element={
+              <ProtectedRoute>
+                <Ganhos />
+              </ProtectedRoute>
+            } />
+            <Route path="/visao-geral" element={
+              <ProtectedRoute>
+                <VisaoGeral />
+              </ProtectedRoute>
+            } />
+            <Route path="/index" element={<Login />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </TooltipProvider>
+      </AuthProvider>
+    </BrowserRouter>
   </QueryClientProvider>
 );
 
