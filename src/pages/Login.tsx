@@ -25,10 +25,10 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
     setErrorMessage(null);
-    
+
     try {
-      console.log("Attempting to connect to:", 'http://69.62.98.55:3000/api/auth/login');
-      const response = await fetch('http://69.62.98.55:3000/api/auth/login', {
+      // Atualizamos para a nova URL
+      const response = await fetch('https://tradingfordummies.site/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -36,34 +36,31 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      console.log("Response status:", response.status);
       const data = await response.json();
-      console.log("Response data:", data);
 
       if (response.ok && data.token) {
         login(data.token);
         toast({
-          title: "Login successful",
-          description: "Welcome back to TradingForDummies!",
+          title: "Login realizado com sucesso",
+          description: "Bem-vindo ao TradingForDummies!",
         });
         navigate("/dashboard");
       } else {
-        // Show the specific error message from the API
-        const apiErrorMessage = data.message || data.error || "Invalid email or password.";
+        // Exibe mensagem de erro da API, se disponível
+        const apiErrorMessage = data.message || data.error || "E-mail ou senha inválidos.";
         setErrorMessage(apiErrorMessage);
         toast({
-          title: "Login failed",
+          title: "Falha no login",
           description: apiErrorMessage,
           variant: "destructive",
         });
       }
     } catch (error) {
       console.error("Login error:", error);
-      // This error occurs when the API is unreachable (network error)
-      const networkErrorMsg = "Unable to connect to authentication server. Please check your internet connection or try again later.";
+      const networkErrorMsg = "Não foi possível conectar ao servidor de autenticação. Verifique sua conexão com a internet ou tente novamente mais tarde.";
       setErrorMessage(networkErrorMsg);
       toast({
-        title: "Connection error",
+        title: "Erro de conexão",
         description: networkErrorMsg,
         variant: "destructive",
       });
@@ -82,13 +79,13 @@ const Login = () => {
         <Card className="bg-crypto-gray border-crypto-lightgray">
           <CardHeader>
             <CardTitle className="text-xl font-semibold">Sign In</CardTitle>
-            <CardDescription>Enter your credentials to access your account</CardDescription>
+            <CardDescription>Digite suas credenciais para acessar sua conta</CardDescription>
           </CardHeader>
           <form onSubmit={handleLogin}>
             <CardContent className="space-y-4">
               {errorMessage && (
                 <Alert variant="destructive">
-                  <AlertTitle>Error</AlertTitle>
+                  <AlertTitle>Erro</AlertTitle>
                   <AlertDescription>{errorMessage}</AlertDescription>
                 </Alert>
               )}
@@ -110,7 +107,7 @@ const Login = () => {
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">Senha</Label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     <Lock className="h-4 w-4 text-crypto-text" />
@@ -143,11 +140,8 @@ const Login = () => {
                 className="w-full bg-crypto-yellow hover:bg-crypto-yellow/90 text-black"
                 disabled={isLoading}
               >
-                {isLoading ? "Signing in..." : "Sign In"}
+                {isLoading ? "Entrando..." : "Entrar"}
               </Button>
-              <div className="text-sm text-crypto-text text-center">
-                Demo credentials: demo@example.com / password
-              </div>
             </CardFooter>
           </form>
         </Card>
