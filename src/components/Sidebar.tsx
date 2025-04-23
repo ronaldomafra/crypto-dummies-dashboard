@@ -1,8 +1,7 @@
-
 import { cn } from "@/lib/utils";
 import { 
   BarChart2, ChevronRight, CircleDollarSign, 
-  LayoutDashboard, Wallet, Settings, User, Bot
+  LayoutDashboard, Wallet, Settings, User, Bot, ChevronDown
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { Button } from "./ui/button";
