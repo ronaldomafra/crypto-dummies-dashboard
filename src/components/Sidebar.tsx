@@ -1,3 +1,4 @@
+
 import { cn } from "@/lib/utils";
 import { 
   BarChart2, ChevronRight, CircleDollarSign, 
@@ -31,8 +32,8 @@ const SidebarLink = ({
       className={({ isActive }) => cn(
         "flex items-center gap-3 px-4 py-2.5 rounded-md transition-colors",
         isActive 
-          ? "bg-crypto-lightgray text-white" 
-          : "text-crypto-text hover:bg-crypto-lightgray hover:text-white",
+          ? "bg-trading-primary/20 text-trading-primary" 
+          : "text-muted-foreground hover:bg-secondary hover:text-foreground",
         isNested && "ml-4",
         collapsed && "justify-center px-2"
       )}
@@ -54,14 +55,14 @@ const Sidebar = () => {
   return (
     <div 
       className={cn(
-        "border-r border-crypto-lightgray h-[calc(100vh-64px)] flex flex-col py-4 transition-all duration-300 relative",
+        "border-r border-border h-[calc(100vh-64px)] flex flex-col py-4 transition-all duration-300 relative",
         collapsed ? "w-14" : "w-56"
       )}
     >
       <Button
-        variant="ghost"
+        variant="outline"
         size="icon"
-        className="absolute -right-3 top-3 bg-crypto-dark border border-crypto-lightgray rounded-full"
+        className="absolute -right-3 top-3 rounded-full"
         onClick={() => setCollapsed(!collapsed)}
       >
         <ChevronRight className={cn(
@@ -78,7 +79,7 @@ const Sidebar = () => {
         <SidebarLink icon={BarChart2} label="Visão Geral" to="/visao-geral" collapsed={collapsed} />
       </div>
       
-      <div className="mt-4 pt-4 border-t border-crypto-lightgray">
+      <div className="mt-4 pt-4 border-t border-border">
         <div className="space-y-1 px-2">
           <SidebarLink icon={User} label="Conta" to="/conta" hasDropdown collapsed={collapsed} />
           <SidebarLink icon={Settings} label="Configurações" to="/configuracoes" collapsed={collapsed} />

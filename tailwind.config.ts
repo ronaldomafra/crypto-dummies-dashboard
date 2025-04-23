@@ -53,14 +53,30 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        trading: {
+          primary: "#2BAF7B", // Verde Suave
+          dark: "#1E1E23", // Cinza Escuro (fundo)
+          light: "#FFFFFF", // Branco Neve (fundo claro)
+          text: {
+            dark: "#FFFFFF", // Texto primário no tema escuro
+            light: "#1E1E23", // Texto primário no tema claro
+            secondary: "#A0A0A0", // Texto secundário
+          },
+          accent: "#3A95F7", // Azul Claro
+          error: "#F76363", // Vermelho Suave
+          success: "#4CE185", // Verde Claro Vibrante
+          neutral: "#4C4C4C", // Botões Neutros
+          border: "#2D2D2D", // Bordas e Separadores
+          "border-light": "#A0A0A0", // Bordas modo claro
+        },
         crypto: {
           yellow: "#F0B90B",
-          positive: "#0ECB81",
-          negative: "#F6465D",
-          dark: "#0B0E11",
-          gray: "#1E2329",
-          lightgray: "#2B3139",
-          text: "#848E9C",
+          positive: "#4CE185", // Atualizado para a nova cor de sucesso
+          negative: "#F76363", // Atualizado para a nova cor de erro
+          dark: "#1E1E23",    // Atualizado para a nova cor de fundo
+          gray: "#2D2D2D",    // Atualizado
+          lightgray: "#4C4C4C", // Atualizado
+          text: "#A0A0A0",      // Atualizado
         },
       },
       borderRadius: {

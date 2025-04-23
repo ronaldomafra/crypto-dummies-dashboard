@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Logo } from "@/components/ui/logo";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { useNavigate } from "react-router-dom";
 import { 
   Bell, ChevronDown, Globe, LogOut, Search, Settings, User,
@@ -15,16 +16,18 @@ import {
   DropdownMenuSeparator, 
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
+import { useAuth } from "@/contexts/AuthContext";
 
 const TopNav = () => {
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   const handleLogout = () => {
-    navigate("/");
+    logout();
   };
 
   return (
-    <div className="h-16 border-b border-crypto-lightgray flex items-center px-4 justify-between">
+    <div className="h-16 border-b border-border flex items-center px-4 justify-between">
       <div className="flex items-center gap-8">
         <Logo size="sm" />
         
@@ -50,9 +53,11 @@ const TopNav = () => {
           <Input 
             type="search" 
             placeholder="Pesquisar..." 
-            className="pl-8 w-60 bg-crypto-lightgray focus:bg-crypto-gray"
+            className="pl-8 w-60 bg-secondary"
           />
         </div>
+        
+        <ThemeToggle />
         
         <Button variant="ghost" size="icon">
           <Bell size={20} />
@@ -72,13 +77,13 @@ const TopNav = () => {
               <User size={20} />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56 bg-crypto-gray border-crypto-lightgray">
+          <DropdownMenuContent align="end" className="w-56">
             <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Perfil</DropdownMenuItem>
             <DropdownMenuItem>Configurações</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleLogout} className="text-crypto-negative">
+            <DropdownMenuItem onClick={handleLogout} className="text-trading-error">
               <LogOut className="mr-2 h-4 w-4" />
               <span>Sair</span>
             </DropdownMenuItem>

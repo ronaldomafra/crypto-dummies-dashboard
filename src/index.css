@@ -5,26 +5,48 @@
 
 @layer base {
   :root {
-    --background: 222 47% 11%;
-    --foreground: 0 0% 98%;
-    --card: 222 47% 11%;
-    --card-foreground: 0 0% 98%;
-    --popover: 222 47% 11%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 47 92% 49%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 215 14% 34%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 215 14% 34%;
-    --muted-foreground: 215 5% 65%;
-    --accent: 215 14% 34%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 215 14% 34%;
-    --input: 215 14% 34%;
-    --ring: 227 35% 25%;
+    --background: 0 0% 100%;
+    --foreground: 240 10% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 12%;
+    --primary: 154 60% 43%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 240 10% 12%;
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
+    --accent: 214 89% 60%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 70% 67%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 63%;
+    --input: 0 0% 63%;
+    --ring: 154 60% 43%;
     --radius: 0.5rem;
+  }
+  
+  .dark {
+    --background: 240 10% 12%;
+    --foreground: 0 0% 100%;
+    --card: 240 10% 12%;
+    --card-foreground: 0 0% 100%;
+    --popover: 240 10% 12%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 154 60% 43%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 5% 30%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 240 5% 30%;
+    --muted-foreground: 240 5% 65%;
+    --accent: 214 89% 60%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 70% 67%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 5% 18%;
+    --input: 240 5% 18%;
+    --ring: 154 60% 43%;
   }
   
   * {
@@ -32,7 +54,7 @@
   }
   
   body {
-    @apply bg-crypto-dark text-foreground;
+    @apply bg-background text-foreground;
   }
 }
 
@@ -47,14 +69,14 @@
   }
   
   .text-positive {
-    @apply text-crypto-positive;
+    @apply text-trading-success;
   }
   
   .text-negative {
-    @apply text-crypto-negative;
+    @apply text-trading-error;
   }
 
   .bg-card-hover {
-    @apply hover:bg-crypto-gray transition-colors duration-200;
+    @apply hover:bg-trading-neutral transition-colors duration-200;
   }
 }
