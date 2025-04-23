@@ -1,8 +1,8 @@
 
 import { cn } from "@/lib/utils";
 import { 
-  BarChart2, ChevronDown, CircleDollarSign, 
-  LayoutDashboard, Wallet, Settings, User, Bot, ChevronLeft
+  BarChart2, ChevronRight, CircleDollarSign, 
+  LayoutDashboard, Wallet, Settings, User, Bot
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { Button } from "./ui/button";
@@ -50,15 +50,27 @@ const SidebarLink = ({
 };
 
 const Sidebar = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   return (
     <div 
       className={cn(
-        "border-r border-crypto-lightgray h-[calc(100vh-64px)] flex flex-col py-4 transition-all duration-300",
+        "border-r border-crypto-lightgray h-[calc(100vh-64px)] flex flex-col py-4 transition-all duration-300 relative",
         collapsed ? "w-14" : "w-56"
       )}
     >
+      <Button
+        variant="ghost"
+        size="icon"
+        className="absolute -right-3 top-3 bg-crypto-dark border border-crypto-lightgray rounded-full"
+        onClick={() => setCollapsed(!collapsed)}
+      >
+        <ChevronRight className={cn(
+          "h-4 w-4 transition-transform",
+          !collapsed && "rotate-180"
+        )} />
+      </Button>
+
       <div className="space-y-1 px-2">
         <SidebarLink icon={LayoutDashboard} label="Dashboard" to="/dashboard" collapsed={collapsed} />
         <SidebarLink icon={Bot} label="Bots" to="/bots" collapsed={collapsed} />
@@ -73,18 +85,6 @@ const Sidebar = () => {
           <SidebarLink icon={Settings} label="Configurações" to="/configuracoes" collapsed={collapsed} />
         </div>
       </div>
-
-      <Button
-        variant="ghost"
-        size="icon"
-        className="mt-auto mx-auto"
-        onClick={() => setCollapsed(!collapsed)}
-      >
-        <ChevronLeft className={cn(
-          "h-4 w-4 transition-transform",
-          collapsed && "rotate-180"
-        )} />
-      </Button>
     </div>
   );
 };
