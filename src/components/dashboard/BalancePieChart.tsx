@@ -1,6 +1,5 @@
 
-import { Card, CardContent } from "@/components/ui/card";
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from "recharts";
 
 const data = [
   { name: "Spot", value: 20, color: "#3498DB" },
@@ -11,35 +10,33 @@ const data = [
 
 const BalancePieChart = () => {
   return (
-    <Card className="bg-crypto-gray border-crypto-lightgray">
-      <CardContent className="h-[240px]">
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Pie
-              data={data}
-              cx="50%"
-              cy="50%"
-              innerRadius={60}
-              outerRadius={80}
-              paddingAngle={2}
-              dataKey="value"
-              label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-            >
-              {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
-              ))}
-            </Pie>
-            <Tooltip
-              contentStyle={{
-                backgroundColor: "#1E2329",
-                borderColor: "#2B3139",
-                borderRadius: "8px",
-              }}
-            />
-          </PieChart>
-        </ResponsiveContainer>
-      </CardContent>
-    </Card>
+    <ResponsiveContainer width="100%" height="100%">
+      <PieChart>
+        <Pie
+          data={data}
+          cx="50%"
+          cy="50%"
+          innerRadius={30}
+          outerRadius={60}
+          paddingAngle={2}
+          dataKey="value"
+          label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+        >
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={entry.color} />
+          ))}
+        </Pie>
+        <Tooltip
+          contentStyle={{
+            backgroundColor: "#1E2329",
+            borderColor: "#2B3139",
+            borderRadius: "8px",
+            fontSize: "12px",
+            padding: "4px 8px",
+          }}
+        />
+      </PieChart>
+    </ResponsiveContainer>
   );
 };
 

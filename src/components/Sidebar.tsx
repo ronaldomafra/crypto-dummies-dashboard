@@ -59,17 +59,19 @@ const Sidebar = () => {
         collapsed ? "w-14" : "w-56"
       )}
     >
-      <Button
-        variant="outline"
-        size="icon"
-        className="absolute -right-3 top-3 rounded-full"
-        onClick={() => setCollapsed(!collapsed)}
-      >
-        <ChevronRight className={cn(
-          "h-4 w-4 transition-transform",
-          !collapsed && "rotate-180"
-        )} />
-      </Button>
+      <div className="flex justify-end mb-2 px-2">
+        <Button
+          variant="outline"
+          size="icon"
+          className="h-8 w-8 rounded-full"
+          onClick={() => setCollapsed(!collapsed)}
+        >
+          <ChevronRight className={cn(
+            "h-4 w-4 transition-transform",
+            !collapsed && "rotate-180"
+          )} />
+        </Button>
+      </div>
 
       <div className="space-y-1 px-2">
         <SidebarLink icon={LayoutDashboard} label="Dashboard" to="/dashboard" collapsed={collapsed} />
