@@ -10,6 +10,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { API_ENDPOINTS } from "@/api/constants";
+import { api } from "@/api/apiUtils";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -27,41 +29,24 @@ const Login = () => {
     setErrorMessage(null);
 
     try {
-      // Atualizamos para a nova URL
-      const response = await fetch('https://tradingfordummies.site/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.token) {
+      // Use the API utility to make the login request
+      const { data } = await api.post(API_ENDPOINTS.users.login, { email, password });
+      
+      if (data.token) {
         login(data.token);
         toast({
           title: "Login realizado com sucesso",
           description: "Bem-vindo ao TradingForDummies!",
         });
         navigate("/dashboard");
-      } else {
-        // Exibe mensagem de erro da API, se disponível
-        const apiErrorMessage = data.message || data.error || "E-mail ou senha inválidos.";
-        setErrorMessage(apiErrorMessage);
-        toast({
-          title: "Falha no login",
-          description: apiErrorMessage,
-          variant: "destructive",
-        });
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Login error:", error);
-      const networkErrorMsg = "Não foi possível conectar ao servidor de autenticação. Verifique sua conexão com a internet ou tente novamente mais tarde.";
-      setErrorMessage(networkErrorMsg);
+      const apiErrorMessage = error.message || "E-mail ou senha inválidos.";
+      setErrorMessage(apiErrorMessage);
       toast({
-        title: "Erro de conexão",
-        description: networkErrorMsg,
+        title: "Falha no login",
+        description: apiErrorMessage,
         variant: "destructive",
       });
     } finally {
