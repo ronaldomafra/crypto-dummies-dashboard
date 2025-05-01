@@ -20,11 +20,11 @@ const BotCard = ({ bot }: BotCardProps) => {
   const isProfit = !bot.profit.startsWith("-");
 
   return (
-    <Card className="bg-crypto-gray border-crypto-lightgray overflow-hidden">
+    <Card className="bg-card border-border overflow-hidden">
       <CardHeader className="pb-3">
         <div className="flex justify-between items-start">
           <CardTitle className="text-base font-semibold">{bot.name}</CardTitle>
-          <Badge className={bot.status === "ativo" ? "bg-crypto-positive" : "bg-crypto-negative"}>
+          <Badge className={bot.status === "ativo" ? "bg-trading-success" : "bg-trading-error"}>
             {bot.status === "ativo" ? "Ativo" : "Inativo"}
           </Badge>
         </div>
@@ -32,20 +32,20 @@ const BotCard = ({ bot }: BotCardProps) => {
       <CardContent>
         <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <span className="text-crypto-text text-sm">Par</span>
+            <span className="text-muted-foreground text-sm">Par</span>
             <span className="font-medium">{bot.pair}</span>
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-crypto-text text-sm">Tipo</span>
+            <span className="text-muted-foreground text-sm">Tipo</span>
             <span className="font-medium">{bot.type}</span>
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-crypto-text text-sm">Exchange</span>
+            <span className="text-muted-foreground text-sm">Exchange</span>
             <span className="font-medium">{bot.exchange}</span>
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-crypto-text text-sm">Lucro</span>
-            <span className={`font-medium flex items-center ${isProfit ? 'text-crypto-positive' : 'text-crypto-negative'}`}>
+            <span className="text-muted-foreground text-sm">Lucro</span>
+            <span className={`font-medium flex items-center ${isProfit ? 'text-trading-success' : 'text-trading-error'}`}>
               {isProfit ? <ArrowUp className="h-4 w-4 mr-1" /> : <ArrowDown className="h-4 w-4 mr-1" />}
               {bot.profit}
             </span>
@@ -53,7 +53,7 @@ const BotCard = ({ bot }: BotCardProps) => {
         </div>
       </CardContent>
       <CardFooter>
-        <Button variant="outline" className="w-full border-crypto-yellow text-crypto-yellow hover:bg-crypto-lightgray">
+        <Button variant="outline" className="w-full border-trading-primary text-trading-primary hover:bg-muted">
           Ver Detalhes
         </Button>
       </CardFooter>

@@ -16,8 +16,8 @@ interface CarteiraCardProps {
 
 const CarteiraCard = ({ carteira }: CarteiraCardProps) => {
   return (
-    <Card className="bg-crypto-gray border-crypto-lightgray overflow-hidden">
-      <div className="w-full h-40 bg-crypto-lightgray">
+    <Card className="bg-card border-border overflow-hidden">
+      <div className="w-full h-40 bg-muted">
         <img 
           src={carteira.imagem} 
           alt={carteira.nome} 
@@ -30,7 +30,7 @@ const CarteiraCard = ({ carteira }: CarteiraCardProps) => {
       <CardHeader className="pb-3">
         <div className="flex justify-between items-start">
           <CardTitle className="text-base font-semibold">{carteira.nome}</CardTitle>
-          <Badge className="bg-crypto-yellow text-black font-medium">
+          <Badge className="bg-trading-primary text-background font-medium">
             {carteira.exchange}
           </Badge>
         </div>
@@ -38,19 +38,19 @@ const CarteiraCard = ({ carteira }: CarteiraCardProps) => {
       <CardContent>
         <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <span className="text-crypto-text text-sm">Saldo</span>
+            <span className="text-muted-foreground text-sm">Saldo</span>
             <span className="font-medium">{carteira.saldo}</span>
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-crypto-text text-sm">Moedas</span>
+            <span className="text-muted-foreground text-sm">Moedas</span>
             <div className="flex gap-1">
               {carteira.moedas.slice(0, 3).map((moeda) => (
-                <Badge key={moeda} variant="outline" className="border-crypto-lightgray">
+                <Badge key={moeda} variant="outline" className="border-muted">
                   {moeda}
                 </Badge>
               ))}
               {carteira.moedas.length > 3 && (
-                <Badge variant="outline" className="border-crypto-lightgray">
+                <Badge variant="outline" className="border-muted">
                   +{carteira.moedas.length - 3}
                 </Badge>
               )}
@@ -59,7 +59,7 @@ const CarteiraCard = ({ carteira }: CarteiraCardProps) => {
         </div>
       </CardContent>
       <CardFooter>
-        <Button variant="outline" className="w-full border-crypto-yellow text-crypto-yellow hover:bg-crypto-lightgray">
+        <Button variant="outline" className="w-full border-trading-primary text-trading-primary hover:bg-muted">
           Ver Detalhes
         </Button>
       </CardFooter>

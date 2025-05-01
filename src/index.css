@@ -21,8 +21,8 @@
     --accent-foreground: 0 0% 100%;
     --destructive: 0 70% 67%;
     --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 63%;
-    --input: 0 0% 63%;
+    --border: 0 0% 85%;
+    --input: 0 0% 85%;
     --ring: 154 60% 43%;
     --radius: 0.5rem;
   }
@@ -30,22 +30,22 @@
   .dark {
     --background: 240 10% 12%;
     --foreground: 0 0% 100%;
-    --card: 240 10% 12%;
+    --card: 240 10% 15%;
     --card-foreground: 0 0% 100%;
-    --popover: 240 10% 12%;
+    --popover: 240 10% 15%;
     --popover-foreground: 0 0% 100%;
     --primary: 154 60% 43%;
     --primary-foreground: 0 0% 100%;
     --secondary: 240 5% 30%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 240 5% 30%;
+    --muted: 240 5% 20%;
     --muted-foreground: 240 5% 65%;
     --accent: 214 89% 60%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 70% 67%;
     --destructive-foreground: 0 0% 100%;
-    --border: 240 5% 18%;
-    --input: 240 5% 18%;
+    --border: 240 5% 26%;
+    --input: 240 5% 26%;
     --ring: 154 60% 43%;
   }
   
@@ -77,6 +77,6 @@
   }
 
   .bg-card-hover {
-    @apply hover:bg-trading-neutral transition-colors duration-200;
+    @apply hover:bg-muted transition-colors duration-200;
   }
 }

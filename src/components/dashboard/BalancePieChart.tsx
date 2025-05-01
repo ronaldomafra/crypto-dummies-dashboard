@@ -5,7 +5,7 @@ const data = [
   { name: "Spot", value: 20, color: "#3498DB" },
   { name: "USD-M", value: 30, color: "#34DB9E" },
   { name: "COIN-M", value: 10, color: "#F0B90B" },
-  { name: "Arbitrage Bot", value: 10, color: "#00E396" },
+  { name: "Robô de Arbitragem", value: 10, color: "#00E396" },
 ];
 
 const BalancePieChart = () => {
@@ -28,11 +28,12 @@ const BalancePieChart = () => {
         </Pie>
         <Tooltip
           contentStyle={{
-            backgroundColor: "#1E2329",
-            borderColor: "#2B3139",
+            backgroundColor: "var(--background)",
+            borderColor: "var(--border)",
             borderRadius: "8px",
             fontSize: "12px",
             padding: "4px 8px",
+            color: "var(--foreground)"
           }}
         />
       </PieChart>

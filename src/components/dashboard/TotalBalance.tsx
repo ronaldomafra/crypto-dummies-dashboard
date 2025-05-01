@@ -1,147 +1,99 @@
 
-import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Eye, EyeOff, HelpCircle, Maximize2 } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import WalletBalances from "./WalletBalances";
+import { EyeOff, Download, Plus } from "lucide-react";
 import BalancePieChart from "./BalancePieChart";
-import AccumulatedValueChart from "./AccumulatedValueChart";
 
 const TotalBalance = () => {
-  const [hideBalance, setHideBalance] = useState(false);
-
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 w-full overflow-x-hidden">
-      {/* Left Column - Balance Information */}
-      <Card className="bg-crypto-gray border-crypto-lightgray">
-        <CardContent className="p-3 sm:p-4">
-          <div className="space-y-3 sm:space-y-4">
-            <div className="flex items-center gap-2">
-              <h2 className="text-sm sm:text-base font-medium">Total Balance</h2>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="ghost" size="icon" className="h-5 w-5">
-                      <HelpCircle className="h-3 w-3 sm:h-4 sm:w-4" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>The total value of all your assets</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <div className="text-lg sm:text-2xl font-bold">
-                {hideBalance ? "••••••" : "94,836.95"}
+    <Card className="bg-card">
+      <CardHeader className="pb-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+          <div>
+            <CardTitle className="text-lg font-medium">Saldo Total</CardTitle>
+            <CardDescription>Seu saldo total em todas as exchanges</CardDescription>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Button variant="outline" size="sm" className="flex items-center gap-1">
+              <EyeOff className="w-4 h-4" /> Ocultar
+            </Button>
+            <Button variant="outline" size="sm" className="flex items-center gap-1">
+              <Download className="w-4 h-4" /> Exportar
+            </Button>
+          </div>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <Tabs defaultValue="all" className="space-y-4">
+          <TabsList className="grid w-full md:w-auto grid-cols-3 h-auto p-1">
+            <TabsTrigger value="all" className="text-xs py-1 px-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Todos</TabsTrigger>
+            <TabsTrigger value="spot" className="text-xs py-1 px-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Spot</TabsTrigger>
+            <TabsTrigger value="future" className="text-xs py-1 px-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Futuros</TabsTrigger>
+          </TabsList>
+          <TabsContent value="all" className="space-y-4">
+            <div className="flex flex-col md:flex-row justify-between gap-4">
+              <div className="space-y-2">
+                <div className="text-sm text-muted-foreground">Saldo total</div>
+                <div className="text-3xl font-bold">$24,309.50</div>
               </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-6 w-6 sm:h-8 sm:w-8"
-                onClick={() => setHideBalance(!hideBalance)}
-              >
-                {hideBalance ? <EyeOff className="h-3 w-3 sm:h-4 sm:w-4" /> : <Eye className="h-3 w-3 sm:h-4 sm:w-4" />}
-              </Button>
-              <span className="text-xs sm:text-sm text-muted-foreground">USDT</span>
-            </div>
-
-            <div className="py-1.5 px-2 sm:py-2 sm:px-3 bg-crypto-lightgray rounded-md flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0">
-              <div className="flex items-center gap-1 sm:gap-2">
-                <span className="text-xs sm:text-sm">Today's PNL</span>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button variant="ghost" size="icon" className="h-4 w-4 sm:h-5 sm:w-5">
-                        <HelpCircle className="h-3 w-3 sm:h-4 sm:w-4" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Profit and Loss for today</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-              <div className="text-crypto-positive text-xs sm:text-sm font-medium">
-                + $65,231.76
+              <div className="flex gap-4">
+                <div className="space-y-2">
+                  <div className="text-sm text-muted-foreground">Ganhos (30d)</div>
+                  <div className="text-xl font-semibold text-trading-success">+$2,145.30</div>
+                </div>
+                <div className="space-y-2">
+                  <div className="text-sm text-muted-foreground">Ganhos (hoje)</div>
+                  <div className="text-xl font-semibold text-trading-success">+$567.89</div>
+                </div>
               </div>
             </div>
-
-            <WalletBalances />
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Right Column - Charts */}
-      <Card className="bg-crypto-gray border-crypto-lightgray">
-        <CardContent className="space-y-3 sm:space-y-4 p-3 sm:p-4">
-          {/* Asset Distribution Section */}
-          <div className="space-y-2 sm:space-y-3">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm sm:text-base font-medium">Asset Distribution</h3>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button variant="ghost" size="icon" className="h-6 w-6">
-                    <Maximize2 className="h-3 w-3 sm:h-4 sm:w-4" />
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-4xl">
-                  <DialogHeader>
-                    <DialogTitle>Asset Distribution</DialogTitle>
-                  </DialogHeader>
-                  <div className="h-[500px]">
-                    <BalancePieChart />
-                  </div>
-                </DialogContent>
-              </Dialog>
+          </TabsContent>
+          <TabsContent value="spot" className="space-y-4">
+            <div className="flex flex-col md:flex-row justify-between gap-4">
+              <div className="space-y-2">
+                <div className="text-sm text-muted-foreground">Saldo Spot</div>
+                <div className="text-3xl font-bold">$12,154.75</div>
+              </div>
+              <div className="flex gap-4">
+                <div className="space-y-2">
+                  <div className="text-sm text-muted-foreground">Ganhos (30d)</div>
+                  <div className="text-xl font-semibold text-trading-success">+$845.50</div>
+                </div>
+                <div className="space-y-2">
+                  <div className="text-sm text-muted-foreground">Ganhos (hoje)</div>
+                  <div className="text-xl font-semibold text-trading-success">+$125.40</div>
+                </div>
+              </div>
             </div>
-            <div className="h-[180px] sm:h-[200px]">
-              <BalancePieChart />
+          </TabsContent>
+          <TabsContent value="future" className="space-y-4">
+            <div className="flex flex-col md:flex-row justify-between gap-4">
+              <div className="space-y-2">
+                <div className="text-sm text-muted-foreground">Saldo Futuros</div>
+                <div className="text-3xl font-bold">$12,154.75</div>
+              </div>
+              <div className="flex gap-4">
+                <div className="space-y-2">
+                  <div className="text-sm text-muted-foreground">Ganhos (30d)</div>
+                  <div className="text-xl font-semibold text-trading-success">+$1,299.80</div>
+                </div>
+                <div className="space-y-2">
+                  <div className="text-sm text-muted-foreground">Ganhos (hoje)</div>
+                  <div className="text-xl font-semibold text-trading-success">+$442.49</div>
+                </div>
+              </div>
             </div>
-          </div>
-
-          {/* Accumulated Value Section */}
-          <div className="space-y-2 sm:space-y-3">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm sm:text-base font-medium">Accumulated Value</h3>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button variant="ghost" size="icon" className="h-6 w-6">
-                    <Maximize2 className="h-3 w-3 sm:h-4 sm:w-4" />
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-4xl">
-                  <DialogHeader>
-                    <DialogTitle>Accumulated Value</DialogTitle>
-                  </DialogHeader>
-                  <div className="h-[500px]">
-                    <AccumulatedValueChart />
-                  </div>
-                </DialogContent>
-              </Dialog>
-            </div>
-            <div className="h-[180px] sm:h-[200px]">
-              <AccumulatedValueChart />
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-};
+          </TabsContent>
+        </Tabs>
+      </CardContent>
+      <CardFooter className="pt-0">
+        <Button variant="outline" size="sm" className="flex items-center gap-1">
+          <Plus className="w-4 h-4" /> Adicionar Exchange
+        </Button>
+      </CardFooter>
+    </Card>
+  )
+}
 
 export default TotalBalance;
