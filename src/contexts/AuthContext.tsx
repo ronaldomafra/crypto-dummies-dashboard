@@ -30,7 +30,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         // Chamar o endpoint de logout se houver um token
         await api.post(API_ENDPOINTS.users.logout, {}, true);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Erro ao fazer logout:", error);
     } finally {
       // Mesmo se a API falhar, ainda fazemos logout no lado do cliente
