@@ -8,10 +8,22 @@ interface ApiOptions {
   requiresAuth?: boolean;
 }
 
+interface ApiSuccessResponse<T> {
+  status: "success";
+  data: T;
+}
+
+interface ApiErrorResponse {
+  status: "error";
+  message: string;
+}
+
+type ApiResponse<T> = ApiSuccessResponse<T> | ApiErrorResponse;
+
 /**
  * Makes an API request with the specified options
  */
-export const apiRequest = async (
+export const apiRequest = async <T>(
   endpoint: string,
   options: ApiOptions = {}
 ) => {
@@ -32,7 +44,7 @@ export const apiRequest = async (
   if (requiresAuth) {
     const token = localStorage.getItem("token");
     if (!token) {
-      throw new Error("Authentication required");
+      throw new Error("Autenticação necessária");
     }
     requestHeaders["Authorization"] = `Bearer ${token}`;
   }
@@ -50,19 +62,21 @@ export const apiRequest = async (
 
   try {
     const response = await fetch(endpoint, requestOptions);
-    const data = await response.json();
+    const responseData = await response.json() as ApiResponse<T>;
 
-    if (!response.ok) {
+    if (!response.ok || responseData.status === "error") {
       throw {
         status: response.status,
-        message: data.message || data.error || "API request failed",
-        data,
+        message: responseData.status === "error" 
+          ? responseData.message 
+          : "Falha na requisição API",
+        data: responseData,
       };
     }
 
-    return { data, status: response.status };
+    return { data: responseData.data, status: response.status };
   } catch (error) {
-    console.error("API request error:", error);
+    console.error("Erro na requisição API:", error);
     throw error;
   }
 };
@@ -71,15 +85,15 @@ export const apiRequest = async (
  * Helper functions for common API operations
  */
 export const api = {
-  get: (endpoint: string, requiresAuth = false) =>
-    apiRequest(endpoint, { requiresAuth }),
+  get: <T>(endpoint: string, requiresAuth = false) =>
+    apiRequest<T>(endpoint, { requiresAuth }),
     
-  post: (endpoint: string, body: any, requiresAuth = false) =>
-    apiRequest(endpoint, { method: "POST", body, requiresAuth }),
+  post: <T>(endpoint: string, body: any, requiresAuth = false) =>
+    apiRequest<T>(endpoint, { method: "POST", body, requiresAuth }),
     
-  put: (endpoint: string, body: any, requiresAuth = false) =>
-    apiRequest(endpoint, { method: "PUT", body, requiresAuth }),
+  put: <T>(endpoint: string, body: any, requiresAuth = false) =>
+    apiRequest<T>(endpoint, { method: "PUT", body, requiresAuth }),
     
-  delete: (endpoint: string, requiresAuth = false) =>
-    apiRequest(endpoint, { method: "DELETE", requiresAuth }),
+  delete: <T>(endpoint: string, requiresAuth = false) =>
+    apiRequest<T>(endpoint, { method: "DELETE", requiresAuth }),
 };

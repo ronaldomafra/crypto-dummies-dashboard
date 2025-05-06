@@ -8,6 +8,7 @@ export const API_ENDPOINTS = {
   users: {
     register: `${API_BASE_URL}/users/register`,
     login: `${API_BASE_URL}/users/login`,
+    logout: `${API_BASE_URL}/users/logout`,
     getAll: `${API_BASE_URL}/users/get`,
     getById: (id: number | string) => `${API_BASE_URL}/users/get/${id}`,
     update: (id: number | string) => `${API_BASE_URL}/users/update/${id}`,

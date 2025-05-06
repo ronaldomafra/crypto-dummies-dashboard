@@ -13,6 +13,15 @@ import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { API_ENDPOINTS } from "@/api/constants";
 import { api } from "@/api/apiUtils";
 
+interface LoginResponse {
+  token: string;
+  user?: {
+    id: string;
+    name: string;
+    email: string;
+  };
+}
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,7 +39,7 @@ const Login = () => {
 
     try {
       // Use the API utility to make the login request
-      const { data } = await api.post(API_ENDPOINTS.users.login, { email, password });
+      const { data } = await api.post<LoginResponse>(API_ENDPOINTS.users.login, { email, password });
       
       if (data.token) {
         login(data.token);
@@ -41,7 +50,7 @@ const Login = () => {
         navigate("/dashboard");
       }
     } catch (error: any) {
-      console.error("Login error:", error);
+      console.error("Erro de login:", error);
       const apiErrorMessage = error.message || "E-mail ou senha inválidos.";
       setErrorMessage(apiErrorMessage);
       toast({
@@ -63,7 +72,7 @@ const Login = () => {
         
         <Card className="bg-crypto-gray border-crypto-lightgray">
           <CardHeader>
-            <CardTitle className="text-xl font-semibold">Sign In</CardTitle>
+            <CardTitle className="text-xl font-semibold">Entrar</CardTitle>
             <CardDescription>Digite suas credenciais para acessar sua conta</CardDescription>
           </CardHeader>
           <form onSubmit={handleLogin}>
@@ -83,7 +92,7 @@ const Login = () => {
                   <Input
                     id="email"
                     type="email"
-                    placeholder="name@example.com"
+                    placeholder="nome@exemplo.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="bg-crypto-lightgray pl-10"
