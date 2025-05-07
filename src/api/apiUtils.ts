@@ -74,7 +74,7 @@ export const apiRequest = async <T>(
       };
     }
 
-    return { data: responseData.data, status: response.status };
+    return { response: responseData.data, status: response.status };
   } catch (error) {
     console.error("Erro na requisição API:", error);
     throw error;

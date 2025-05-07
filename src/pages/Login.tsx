@@ -15,11 +15,6 @@ import { api } from "@/api/apiUtils";
 
 interface LoginResponse {
   token: string;
-  user?: {
-    id: string;
-    name: string;
-    email: string;
-  };
 }
 
 const Login = () => {
@@ -39,10 +34,10 @@ const Login = () => {
 
     try {
       // Use the API utility to make the login request
-      const { data } = await api.post<LoginResponse>(API_ENDPOINTS.users.login, { email, password });
-      
-      if (data.token) {
-        login(data.token);
+      const { response, status } = await api.post<LoginResponse>(API_ENDPOINTS.users.login, { email, password });
+
+      if (status === 200) {
+        login(response.token); // Call the login function from AuthContext
         toast({
           title: "Login realizado com sucesso",
           description: "Bem-vindo ao TradingForDummies!",

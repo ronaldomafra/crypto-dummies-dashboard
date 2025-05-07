@@ -2,7 +2,7 @@
 // Base URLs for API requests based on environment
 const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 export const API_BASE_URL = isDevelopment 
-  ? "http://localhost:3000/api" 
+  ? "http://localhost:3000" 
   : "https://tradingfordummies.site/api";
 
 // API endpoints
