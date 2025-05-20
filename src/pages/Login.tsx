@@ -12,6 +12,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { API_ENDPOINTS } from "@/api/constants";
 import { api } from "@/api/apiUtils";
+import { motion } from "framer-motion";
 
 interface LoginResponse {
   token: string;
@@ -58,9 +59,36 @@ const Login = () => {
     }
   };
 
+  // Function to simulate login for demonstration
+  const handleSimulateLogin = () => {
+    setIsLoading(true);
+    
+    // Simulate API call delay
+    setTimeout(() => {
+      // Generate a fake token
+      const fakeToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ";
+      
+      // Login using the fake token
+      login(fakeToken);
+      
+      toast({
+        title: "Login simulado realizado",
+        description: "Navegando para o dashboard...",
+      });
+      
+      navigate("/dashboard");
+      setIsLoading(false);
+    }, 1500);
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-crypto-dark p-4">
-      <div className="w-full max-w-md">
+      <motion.div 
+        className="w-full max-w-md"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         <div className="flex justify-center mb-8">
           <Logo size="lg" />
         </div>
@@ -131,10 +159,21 @@ const Login = () => {
               >
                 {isLoading ? "Entrando..." : "Entrar"}
               </Button>
+              
+              {/* Simulate login button - for demonstration */}
+              <Button
+                type="button"
+                variant="ghost"
+                className="w-full hover:bg-crypto-lightgray text-crypto-text hover:text-white"
+                onClick={handleSimulateLogin}
+                disabled={isLoading}
+              >
+                Simular Login (Demonstração)
+              </Button>
             </CardFooter>
           </form>
         </Card>
-      </div>
+      </motion.div>
     </div>
   );
 };
