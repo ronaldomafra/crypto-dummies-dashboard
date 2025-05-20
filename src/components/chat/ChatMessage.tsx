@@ -1,12 +1,11 @@
 
-import React, { useState } from 'react';
-import { Message, MessageType } from '@/contexts/ChatContext';
+import React from 'react';
+import { Message } from '@/contexts/ChatContext';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { ChevronDown } from 'lucide-react';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { CircleCheck, Loader, ChevronDown } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 interface ChatMessageProps {
@@ -34,7 +33,6 @@ const messageVariants = {
 const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   const isAssistant = message.type === 'assistant';
   const isThinking = message.type === 'thinking';
-  const [isExpanded, setIsExpanded] = useState(false);
 
   const messageClasses = cn(
     "p-4 max-w-[85%] rounded-xl break-words",
@@ -49,6 +47,8 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   );
 
   if (isThinking) {
+    const thinkingSteps = message.content.split('\n').filter(step => step.trim() !== '');
+    
     return (
       <motion.div
         className={cn("flex flex-col items-start")}
@@ -58,7 +58,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
         variants={messageVariants}
         layout
       >
-        <Accordion type="single" collapsible className="w-full max-w-[85%]">
+        <Accordion type="single" collapsible className="w-full max-w-[85%]" defaultValue="thinking">
           <AccordionItem value="thinking" className="border-none">
             <div className={cn(
               "bg-crypto-gray/75 backdrop-blur-sm border border-crypto-lightgray/30 rounded-xl rounded-tl-none p-4",
@@ -69,12 +69,28 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
               </AccordionTrigger>
               <AccordionContent className="pt-3 pb-0">
                 <div className="space-y-2 text-crypto-text font-mono">
-                  {message.content.split('\n').map((line, i) => (
-                    <div key={i} className="flex items-start">
-                      <div className="flex-shrink-0 mr-2">•</div>
-                      <div>{line}</div>
-                    </div>
-                  ))}
+                  {thinkingSteps.map((step, i) => {
+                    const isCompleted = i < thinkingSteps.length - 1;
+                    return (
+                      <div key={i} className="flex items-start gap-3">
+                        {isCompleted ? (
+                          <CircleCheck className="w-5 h-5 text-crypto-positive flex-shrink-0 mt-0.5" />
+                        ) : (
+                          <Loader className="w-5 h-5 text-crypto-yellow animate-spin flex-shrink-0 mt-0.5" />
+                        )}
+                        <div className="flex flex-col">
+                          <span className={`${isCompleted ? 'text-white' : 'text-crypto-text'}`}>
+                            {step}
+                          </span>
+                          {isCompleted && (
+                            <span className="text-xs text-crypto-text mt-0.5">
+                              {getStepDescription(step)}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </AccordionContent>
             </div>
@@ -105,5 +121,17 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
     </motion.div>
   );
 };
+
+// Helper function to get descriptions for each step
+function getStepDescription(stepName: string): string {
+  const descriptions: Record<string, string> = {
+    'Analisando requisitos...': 'Processando seu pedido e identificando as necessidades',
+    'Processando dados de mercado...': 'Consultando dados atualizados de corretoras',
+    'Gerando recomendações...': 'Criando sugestões baseadas nos padrões de mercado',
+    'Finalizando resposta...': 'Organizando informações para uma resposta clara'
+  };
+  
+  return descriptions[stepName] || 'Processando...';
+}
 
 export default ChatMessage;

@@ -3,14 +3,13 @@ import React, { useRef, useEffect } from 'react';
 import { useChat } from '@/contexts/ChatContext';
 import ChatMessage from '@/components/chat/ChatMessage';
 import ChatInput from '@/components/chat/ChatInput';
-import OverlayThoughts from '@/components/chat/OverlayThoughts';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
 import { Trash2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Chat = () => {
-  const { messages, isThinking, clearMessages } = useChat();
+  const { messages, clearMessages } = useChat();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll to bottom on new messages
@@ -60,9 +59,6 @@ const Chat = () => {
           <div className="h-10"></div> {/* Extra space at bottom */}
         </div>
       </ScrollArea>
-
-      {/* Thinking overlay - shown regardless of isThinking state */}
-      <OverlayThoughts />
 
       {/* Chat input */}
       <div className="w-full px-4 py-3 border-t border-crypto-lightgray bg-crypto-dark">
