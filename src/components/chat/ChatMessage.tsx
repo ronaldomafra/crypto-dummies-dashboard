@@ -38,9 +38,9 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
       // User message (right side)
       "self-end bg-crypto-yellow text-black rounded-tr-none": message.type === 'user',
       // Assistant message (left side)
-      "self-start bg-crypto-gray text-white rounded-tl-none shadow-md": isAssistant,
+      "self-start bg-crypto-gray text-white rounded-tl-none": isAssistant,
       // Thinking message
-      "self-start bg-crypto-gray/75 text-crypto-text font-mono border border-crypto-lightgray/30": isThinking,
+      "self-start bg-crypto-gray/75 backdrop-blur-sm text-crypto-text font-mono border border-crypto-lightgray/30": isThinking,
     }
   );
 

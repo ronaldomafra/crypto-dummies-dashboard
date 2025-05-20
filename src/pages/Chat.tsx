@@ -24,7 +24,7 @@ const Chat = () => {
   }, [messages]);
 
   return (
-    <div className="flex flex-col w-full h-full bg-crypto-dark overflow-hidden relative">
+    <div className="flex flex-col w-full h-screen bg-crypto-dark overflow-hidden relative">
       {/* Chat header */}
       <motion.div 
         className="flex justify-between items-center px-6 py-4 border-b border-crypto-lightgray"
@@ -50,7 +50,7 @@ const Chat = () => {
 
       {/* Chat messages */}
       <ScrollArea 
-        className="flex-grow p-4 pb-16" 
+        className="flex-grow px-4 py-4 pb-16" 
         ref={scrollAreaRef}
       >
         <div className="flex flex-col space-y-4 min-h-full">
@@ -61,8 +61,8 @@ const Chat = () => {
         </div>
       </ScrollArea>
 
-      {/* Thinking overlay */}
-      {isThinking && <OverlayThoughts />}
+      {/* Thinking overlay - now shown regardless of isThinking state */}
+      <OverlayThoughts />
 
       {/* Chat input */}
       <div className="w-full px-4 py-3 border-t border-crypto-lightgray bg-crypto-dark">

@@ -68,8 +68,8 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
       await new Promise(resolve => setTimeout(resolve, 700 + Math.random() * 800));
     }
     
-    // Keep the overlay for a moment after all steps complete
-    await new Promise(resolve => setTimeout(resolve, 500));
+    // Keep the thinking state active but don't hide the overlay anymore
+    // Just marking that the thinking process is complete
     setIsThinking(false);
   };
 
@@ -126,6 +126,8 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
         timestamp: new Date(),
       },
     ]);
+    // Clear thinking steps as well when clearing messages
+    setThinkingSteps([]);
   };
 
   return (
