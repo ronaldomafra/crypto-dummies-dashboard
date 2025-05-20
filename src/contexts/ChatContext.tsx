@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 // Message types
@@ -58,6 +59,17 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const simulateThinking = async (steps: ThinkingStep[]) => {
     setIsThinking(true);
     const updatedSteps = [...steps];
+    
+    // Add a thinking message
+    const thinkingContent = steps.map(step => step.description).join('\n');
+    const thinkingMessage: Message = {
+      id: `thinking-${Date.now()}`,
+      content: thinkingContent,
+      type: 'thinking',
+      timestamp: new Date(),
+    };
+    
+    setMessages(prev => [...prev, thinkingMessage]);
     
     for (let i = 0; i < steps.length; i++) {
       // Update current step to completed

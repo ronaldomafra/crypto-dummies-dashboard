@@ -61,7 +61,7 @@ const Chat = () => {
         </div>
       </ScrollArea>
 
-      {/* Thinking overlay - now shown regardless of isThinking state */}
+      {/* Thinking overlay - shown regardless of isThinking state */}
       <OverlayThoughts />
 
       {/* Chat input */}
