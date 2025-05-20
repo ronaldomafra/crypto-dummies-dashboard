@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { CircleCheck, Loader, ChevronDown } from 'lucide-react';
+import { CircleCheck, Loader } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 interface ChatMessageProps {
@@ -35,14 +35,14 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   const isThinking = message.type === 'thinking';
 
   const messageClasses = cn(
-    "p-4 max-w-[85%] rounded-xl break-words",
+    "max-w-[85%] break-words",
     {
       // User message (right side)
-      "self-end bg-crypto-yellow text-black rounded-tr-none": message.type === 'user',
+      "self-end text-black": message.type === 'user',
       // Assistant message (left side)
-      "self-start bg-crypto-gray text-white rounded-tl-none": isAssistant,
+      "self-start text-white": isAssistant,
       // Thinking message
-      "self-start bg-crypto-gray/75 backdrop-blur-sm text-crypto-text font-mono border border-crypto-lightgray/30": isThinking,
+      "self-start text-crypto-text font-mono": isThinking,
     }
   );
 
@@ -61,7 +61,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
         <Accordion type="single" collapsible className="w-full max-w-[85%]" defaultValue="thinking">
           <AccordionItem value="thinking" className="border-none">
             <div className={cn(
-              "bg-crypto-gray/75 backdrop-blur-sm border border-crypto-lightgray/30 rounded-xl rounded-tl-none p-4",
+              "backdrop-blur-sm rounded-xl rounded-tl-none p-4",
               "flex flex-col"
             )}>
               <AccordionTrigger className="py-0 text-crypto-text font-mono">
