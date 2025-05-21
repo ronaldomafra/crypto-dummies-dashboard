@@ -54,7 +54,14 @@ const Chat = () => {
       >
         <div className="flex flex-col space-y-4 min-h-full">
           {messages.map((message) => (
-            <ChatMessage key={message.id} message={message} />
+            <div 
+              key={message.id} 
+              data-message-id={message.id}
+              data-message-type={message.type}
+              data-message-timestamp={message.timestamp.toISOString()}
+            >
+              <ChatMessage message={message} />
+            </div>
           ))}
           <div className="h-10"></div> {/* Extra space at bottom */}
         </div>
