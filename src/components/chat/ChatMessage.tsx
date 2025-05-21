@@ -37,9 +37,9 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   const messageClasses = cn(
     "max-w-[85%] break-words",
     {
-      // User message (right side) - Improved font styling for questions
-      "self-end text-black font-medium": message.type === 'user',
-      // Assistant message (left side) - Distinctive font styling for responses
+      // User message (right side) - Bold font for questions
+      "self-end text-white font-bold": message.type === 'user',
+      // Assistant message (left side) - Regular font for responses
       "self-start text-white font-normal": isAssistant,
       // Thinking message - Monospace for thinking process
       "self-start text-crypto-text font-mono text-sm": isThinking,
@@ -51,59 +51,52 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
     
     return (
       <motion.div
-        className={cn("flex flex-col items-start")}
+        className={cn("flex flex-col items-start w-full")}
         initial="hidden"
         animate="visible"
         exit="exit"
         variants={messageVariants}
         layout
       >
-        <Accordion type="single" collapsible className="w-full max-w-[85%]" defaultValue="thinking">
-          <AccordionItem value="thinking" className="border-none">
-            <div className={cn(
-              "backdrop-blur-sm rounded-xl rounded-tl-none p-4",
-              "flex flex-col"
-            )}>
-              <AccordionTrigger className="py-0 text-crypto-text font-mono">
-                Jeremias está pensando...
-              </AccordionTrigger>
-              <AccordionContent className="pt-3 pb-0">
-                <div className="space-y-2 text-crypto-text font-mono">
-                  {thinkingSteps.map((step, i) => {
-                    // Determine if this step is completed based on the following conditions:
-                    // - If it's not the last step in the array, it's completed
-                    // - If it's the last step AND there are assistant messages after this one, it's completed
-                    const isLastStep = i === thinkingSteps.length - 1;
-                    const isCompleted = !isLastStep || hasResponseAfterThinking(message);
-                    
-                    return (
-                      <div key={i} className="flex items-start gap-3">
-                        {isCompleted ? (
-                          <CircleCheck className="w-5 h-5 text-crypto-positive flex-shrink-0 mt-0.5" />
-                        ) : (
-                          <Loader className="w-5 h-5 text-crypto-yellow animate-spin flex-shrink-0 mt-0.5" />
-                        )}
-                        <div className="flex flex-col">
-                          <span className={`${isCompleted ? 'text-white' : 'text-crypto-text'}`}>
-                            {step}
-                          </span>
-                          {isCompleted && (
-                            <span className="text-xs text-crypto-text mt-0.5">
-                              {getStepDescription(step)}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </AccordionContent>
+        <div className="w-full max-w-[85%] flex flex-col">
+          <div className="flex">
+            <div className="mr-3 min-w-[120px]">
+              <div className="text-crypto-yellow font-medium text-sm mb-1">DeepSearch</div>
+              <div className="text-crypto-text text-xs">{format(message.timestamp, 'ss') + 's'}</div>
             </div>
-          </AccordionItem>
-        </Accordion>
-        <span className="text-xs text-crypto-text mt-1 px-1">
-          {format(message.timestamp, 'HH:mm', { locale: ptBR })}
-        </span>
+            
+            <div className="flex-1">
+              <div className="space-y-4 text-white">
+                {thinkingSteps.map((step, i) => {
+                  const isLastStep = i === thinkingSteps.length - 1;
+                  const isCompleted = !isLastStep || hasResponseAfterThinking(message);
+                  
+                  return (
+                    <div key={i} className="flex items-start gap-3">
+                      <div className="mt-1 flex-shrink-0">
+                        {isCompleted ? (
+                          <CircleCheck size={18} className="text-crypto-positive" />
+                        ) : (
+                          <Loader size={18} className="text-crypto-yellow animate-spin" />
+                        )}
+                      </div>
+                      <div className="flex flex-col">
+                        <div className={`${isCompleted ? 'text-white' : 'text-crypto-text'} font-medium`}>
+                          {step}
+                        </div>
+                        {isCompleted && step.includes('...') && (
+                          <div className="text-xs text-crypto-text mt-1">
+                            {getStepDescription(step)}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
       </motion.div>
     );
   }
