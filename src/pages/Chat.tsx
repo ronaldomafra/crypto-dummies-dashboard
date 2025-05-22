@@ -52,7 +52,7 @@ const Chat = () => {
         className="flex-grow px-6 py-6 pb-16" 
         ref={scrollAreaRef}
       >
-        <div className="flex flex-col space-y-6 min-h-full mx-auto max-w-4xl">
+        <div className="flex flex-col space-y-8 min-h-full mx-auto max-w-4xl">
           {messages.map((message) => (
             <div 
               key={message.id} 

@@ -66,7 +66,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
             </div>
             
             <div className="flex-1">
-              <div className="space-y-5 text-white">
+              <div className="space-y-5 text-white bg-crypto-gray/30 rounded-xl p-4 border border-crypto-lightgray/30 shadow-lg backdrop-blur-sm">
                 {thinkingSteps.map((step, i) => {
                   const isLastStep = i === thinkingSteps.length - 1;
                   const isCompleted = !isLastStep || hasResponseAfterThinking(message);
