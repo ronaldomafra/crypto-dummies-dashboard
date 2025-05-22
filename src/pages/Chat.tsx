@@ -49,10 +49,10 @@ const Chat = () => {
 
       {/* Chat messages */}
       <ScrollArea 
-        className="flex-grow px-4 py-4 pb-16" 
+        className="flex-grow px-6 py-6 pb-16" 
         ref={scrollAreaRef}
       >
-        <div className="flex flex-col space-y-4 min-h-full">
+        <div className="flex flex-col space-y-6 min-h-full mx-auto max-w-4xl">
           {messages.map((message) => (
             <div 
               key={message.id} 
@@ -68,8 +68,10 @@ const Chat = () => {
       </ScrollArea>
 
       {/* Chat input */}
-      <div className="w-full px-4 py-3 border-t border-crypto-lightgray bg-crypto-dark">
-        <ChatInput />
+      <div className="w-full px-6 py-4 border-t border-crypto-lightgray bg-crypto-dark">
+        <div className="mx-auto max-w-4xl">
+          <ChatInput />
+        </div>
       </div>
     </div>
   );

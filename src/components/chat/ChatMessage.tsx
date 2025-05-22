@@ -51,7 +51,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
     
     return (
       <motion.div
-        className={cn("flex flex-col items-start w-full")}
+        className={cn("flex flex-col items-start w-full mb-4")}
         initial="hidden"
         animate="visible"
         exit="exit"
@@ -60,19 +60,19 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
       >
         <div className="w-full max-w-[85%] flex flex-col">
           <div className="flex">
-            <div className="mr-3 min-w-[120px]">
+            <div className="mr-5 min-w-[120px]">
               <div className="text-crypto-yellow font-medium text-sm mb-1">DeepSearch</div>
               <div className="text-crypto-text text-xs">{format(message.timestamp, 'ss') + 's'}</div>
             </div>
             
             <div className="flex-1">
-              <div className="space-y-4 text-white">
+              <div className="space-y-5 text-white">
                 {thinkingSteps.map((step, i) => {
                   const isLastStep = i === thinkingSteps.length - 1;
                   const isCompleted = !isLastStep || hasResponseAfterThinking(message);
                   
                   return (
-                    <div key={i} className="flex items-start gap-3">
+                    <div key={i} className="flex items-start gap-4">
                       <div className="mt-1 flex-shrink-0">
                         {isCompleted ? (
                           <CircleCheck size={18} className="text-crypto-positive" />
@@ -103,7 +103,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
 
   return (
     <motion.div
-      className={cn("flex flex-col", isAssistant ? "items-start" : "items-end")}
+      className={cn("flex flex-col my-2", isAssistant ? "items-start" : "items-end")}
       initial="hidden"
       animate="visible"
       exit="exit"
