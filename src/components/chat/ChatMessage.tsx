@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Message } from '@/contexts/ChatContext';
 import { motion } from 'framer-motion';
@@ -60,13 +59,9 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
       >
         <div className="w-full max-w-[85%] flex flex-col">
           <div className="flex">
-            <div className="mr-5 min-w-[120px]">
-              <div className="text-crypto-yellow font-medium text-sm mb-1">DeepSearch</div>
-              <div className="text-crypto-text text-xs">{format(message.timestamp, 'ss') + 's'}</div>
-            </div>
-            
-            <div className="flex-1">
-              <div className="space-y-5 text-white bg-crypto-gray/30 rounded-xl p-4 border border-crypto-lightgray/30 shadow-lg backdrop-blur-sm">
+            <div className="bg-crypto-gray/30 rounded-xl p-4 border border-crypto-lightgray/30 shadow-lg backdrop-blur-sm flex-1">
+              <div className="text-crypto-yellow font-medium text-sm mb-3">Raciocínio</div>
+              <div className="space-y-5">
                 {thinkingSteps.map((step, i) => {
                   const isLastStep = i === thinkingSteps.length - 1;
                   const isCompleted = !isLastStep || hasResponseAfterThinking(message);
@@ -94,6 +89,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
                   );
                 })}
               </div>
+              <div className="text-crypto-text text-xs mt-3">{format(message.timestamp, 'ss') + 's'}</div>
             </div>
           </div>
         </div>
