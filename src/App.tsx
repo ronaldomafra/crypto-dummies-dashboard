@@ -17,6 +17,7 @@ import NotFound from "./pages/NotFound";
 import Ganhos from "./pages/Ganhos";
 import VisaoGeral from "./pages/VisaoGeral";
 import Chat from "./pages/Chat";
+import JeremiasIcon from "./components/chat/JeremiasIcon";
 
 const queryClient = new QueryClient();
 
@@ -64,6 +65,8 @@ const App = () => (
                 <Route path="/index" element={<Login />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
+              {/* Add Jeremias Icon on all pages */}
+              <JeremiasIcon />
             </TooltipProvider>
           </ChatProvider>
         </AuthProvider>

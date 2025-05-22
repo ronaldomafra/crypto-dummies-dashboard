@@ -8,7 +8,11 @@ import { Button } from '@/components/ui/button';
 import { Trash2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const Chat = () => {
+interface ChatProps {
+  isModal?: boolean;
+}
+
+const Chat = ({ isModal = false }: ChatProps) => {
   const { messages, clearMessages } = useChat();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +27,7 @@ const Chat = () => {
   }, [messages]);
 
   return (
-    <div className="flex flex-col w-full h-screen bg-crypto-dark overflow-hidden relative">
+    <div className={`flex flex-col w-full ${isModal ? 'h-full' : 'h-screen'} bg-crypto-dark overflow-hidden relative`}>
       {/* Chat header */}
       <motion.div 
         className="flex justify-between items-center px-6 py-4 border-b border-crypto-lightgray"
