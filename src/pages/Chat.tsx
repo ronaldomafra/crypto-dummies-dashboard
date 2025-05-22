@@ -53,7 +53,7 @@ const Chat = ({ isModal = false }: ChatProps) => {
 
       {/* Chat messages */}
       <ScrollArea 
-        className="flex-grow px-6 py-6 pb-16" 
+        className="flex-grow px-6 py-6 overflow-y-auto"
         ref={scrollAreaRef}
       >
         <div className="flex flex-col space-y-8 min-h-full mx-auto max-w-4xl">

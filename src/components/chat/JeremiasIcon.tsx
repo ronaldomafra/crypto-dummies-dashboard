@@ -1,10 +1,10 @@
 
 import React from 'react';
-import { MessageCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
   Dialog,
   DialogContent,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -35,7 +35,8 @@ const JeremiasIcon: React.FC<JeremiasIconProps> = ({ className }) => {
         </button>
       </DialogTrigger>
       <DialogContent className="max-w-4xl h-[80vh] p-0 border border-crypto-lightgray">
-        <Chat />
+        <DialogTitle className="sr-only">Chat com Jeremias</DialogTitle>
+        <Chat isModal={true} />
       </DialogContent>
     </Dialog>
   );
