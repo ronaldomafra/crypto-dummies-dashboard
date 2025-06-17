@@ -1,5 +1,4 @@
-
-import { API_BASE_URL } from "./constants";
+import { API_BASE_URL, API_ENDPOINTS } from "./constants";
 
 interface ApiOptions {
   method?: string;
