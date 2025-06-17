@@ -2,46 +2,46 @@
 // Base URLs for API requests based on environment
 const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 export const API_BASE_URL = isDevelopment 
-  ? "http://localhost:3000" 
+  ? "http://localhost:3000/api" 
   : "https://tradingfordummies.site/api";
 
-// API endpoints
+// API endpoints following the Trading AI System documentation
 export const API_ENDPOINTS = {
-  // User endpoints
+  // Root endpoint
+  root: `${API_BASE_URL}`,
+  
+  // Authentication endpoints
+  auth: {
+    register: `${API_BASE_URL}/auth/register`,
+    login: `${API_BASE_URL}/auth/login`,
+    refresh: `${API_BASE_URL}/auth/refresh`,
+    logout: `${API_BASE_URL}/auth/logout`,
+    logoutAll: `${API_BASE_URL}/auth/logout-all`,
+  },
+  
+  // Health check endpoints
+  health: {
+    check: `${API_BASE_URL}/health`,
+    metrics: `${API_BASE_URL}/health/metrics`,
+  },
+  
+  // Test endpoints
+  test: {
+    basic: `${API_BASE_URL}/test`,
+    auth: `${API_BASE_URL}/test/auth`,
+    users: `${API_BASE_URL}/test/users`,
+    validation: `${API_BASE_URL}/test/validation`,
+    rateLimit: `${API_BASE_URL}/test/rate-limit`,
+  },
+  
+  // Legacy endpoints (mantidos para compatibilidade)
   users: {
-    register: `${API_BASE_URL}/users/register`,
-    login: `${API_BASE_URL}/users/login`,
-    logout: `${API_BASE_URL}/users/logout`,
-    getAll: `${API_BASE_URL}/users/get`,
+    register: `${API_BASE_URL}/auth/register`,
+    login: `${API_BASE_URL}/auth/login`,
+    logout: `${API_BASE_URL}/auth/logout`,
+    getAll: `${API_BASE_URL}/test/users`,
     getById: (id: number | string) => `${API_BASE_URL}/users/get/${id}`,
     update: (id: number | string) => `${API_BASE_URL}/users/update/${id}`,
     delete: (id: number | string) => `${API_BASE_URL}/users/delete/${id}`,
-  },
-  
-  // Exchange Provider endpoints
-  exchangeProvider: {
-    getAll: `${API_BASE_URL}/exchangeProvider/get`,
-    getByKey: (key: number | string) => `${API_BASE_URL}/exchangeProvider/get/${key}`,
-    add: `${API_BASE_URL}/exchangeProvider/add`,
-    update: (key: number | string) => `${API_BASE_URL}/exchangeProvider/update/${key}`,
-    delete: (key: number | string) => `${API_BASE_URL}/exchangeProvider/delete/${key}`,
-  },
-  
-  // Exchange endpoints
-  exchange: {
-    getAll: `${API_BASE_URL}/exchange/get`,
-    getById: (id: number | string) => `${API_BASE_URL}/exchange/get/${id}`,
-    add: `${API_BASE_URL}/exchange/add`,
-    update: (id: number | string) => `${API_BASE_URL}/exchange/update/${id}`,
-    delete: (id: number | string) => `${API_BASE_URL}/exchange/delete/${id}`,
-  },
-  
-  // Exchange Config endpoints
-  exchangeConfig: {
-    getAll: `${API_BASE_URL}/exchangeConfig/get`,
-    getByExchangeId: (exchangeId: number | string) => `${API_BASE_URL}/exchangeConfig/get/${exchangeId}`,
-    add: `${API_BASE_URL}/exchangeConfig/add`,
-    update: (exchangeId: number | string) => `${API_BASE_URL}/exchangeConfig/update/${exchangeId}`,
-    delete: (exchangeId: number | string) => `${API_BASE_URL}/exchangeConfig/delete/${exchangeId}`,
   },
 };

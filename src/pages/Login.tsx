@@ -10,13 +10,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-import { API_ENDPOINTS } from "@/api/constants";
-import { api } from "@/api/apiUtils";
+import { authApi, AuthResponse } from "@/api/apiUtils";
 import { motion } from "framer-motion";
-
-interface LoginResponse {
-  token: string;
-}
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -34,17 +29,22 @@ const Login = () => {
     setErrorMessage(null);
 
     try {
-      // Use the API utility to make the login request
-      const { response, status } = await api.post<LoginResponse>(API_ENDPOINTS.users.login, { email, password });
-
-      if (status === 200) {
-        login(response.token); // Call the login function from AuthContext
-        toast({
-          title: "Login realizado com sucesso",
-          description: "Bem-vindo ao TradingForDummies!",
-        });
-        navigate("/dashboard");
-      }
+      const { response } = await authApi.login({ email, password });
+      
+      // Store tokens
+      localStorage.setItem("token", response.accessToken);
+      localStorage.setItem("refreshToken", response.refreshToken);
+      localStorage.setItem("user", JSON.stringify(response.user));
+      
+      // Update auth context
+      login(response.accessToken, response.user);
+      
+      toast({
+        title: "Login realizado com sucesso",
+        description: `Bem-vindo, ${response.user.firstName}!`,
+      });
+      
+      navigate("/dashboard");
     } catch (error: any) {
       console.error("Erro de login:", error);
       const apiErrorMessage = error.message || "E-mail ou senha inválidos.";
@@ -65,11 +65,25 @@ const Login = () => {
     
     // Simulate API call delay
     setTimeout(() => {
-      // Generate a fake token
+      // Generate a fake token and user data
       const fakeToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ";
+      const fakeUser = {
+        id: "demo-user-123",
+        email: "demo@tradingfordummies.com",
+        firstName: "Demo",
+        lastName: "User",
+        isActive: true,
+        emailVerified: true,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      };
       
-      // Login using the fake token
-      login(fakeToken);
+      // Store fake data
+      localStorage.setItem("token", fakeToken);
+      localStorage.setItem("user", JSON.stringify(fakeUser));
+      
+      // Login using the fake data
+      login(fakeToken, fakeUser);
       
       toast({
         title: "Login simulado realizado",
